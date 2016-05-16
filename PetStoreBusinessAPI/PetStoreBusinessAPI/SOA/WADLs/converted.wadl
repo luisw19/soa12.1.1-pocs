@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="Swagger Petstore" xml:lang="en">This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</doc>
+  <resources base="http://petstore.swagger.io/v2">
+    <resource id="/pet" path="/pet">
+      <method id="updatePet" name="PUT">
+        <doc title="updatePet" xml:lang="en">Update an existing pet</doc>
+        <request>
+          <param href="#Pet" name="body" required="true">
+            <doc title="body" xml:lang="en">Pet object that needs to be added to the store</doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid ID supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Pet not found</doc>
+        </response>
+        <response status="405">
+          <doc title="405" xml:lang="en">Validation exception</doc>
+        </response>
+      </method>
+      <method id="addPet" name="POST">
+        <doc title="addPet" xml:lang="en">Add a new pet to the store</doc>
+        <request>
+          <param href="#Pet" name="body" required="true">
+            <doc title="body" xml:lang="en">Pet object that needs to be added to the store</doc>
+          </param>
+        </request>
+        <response status="405">
+          <doc title="405" xml:lang="en">Invalid input</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/pet/findByStatus" path="/pet/findByStatus">
+      <method id="findPetsByStatus" name="GET">
+        <doc title="findPetsByStatus" xml:lang="en">Finds Pets by status</doc>
+        <request>
+          <param name="status" required="true" repeating="true">
+            <doc title="status" xml:lang="en">Status values that need to be considered for filter</doc>
+            <option value="available">
+              <doc title="available" xml:lang="en"></doc>
+            </option>
+            <option value="pending">
+              <doc title="pending" xml:lang="en"></doc>
+            </option>
+            <option value="sold">
+              <doc title="sold" xml:lang="en"></doc>
+            </option>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#Pet" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid status value</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/pet/findByTags" path="/pet/findByTags">
+      <method id="findPetsByTags" name="GET">
+        <doc title="findPetsByTags" xml:lang="en">Finds Pets by tags</doc>
+        <request>
+          <param name="tags" type="xsd:string" required="true" repeating="true">
+            <doc title="tags" xml:lang="en">Tags to filter by</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#Pet" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid tag value</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/pet/{petId}" path="/pet/{petId}">
+      <method id="getPetById" name="GET">
+        <doc title="getPetById" xml:lang="en">Find pet by ID</doc>
+        <request>
+          <param name="petId" type="xsd:integer" required="true">
+            <doc title="petId" xml:lang="en">ID of pet to return</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#Pet" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid ID supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Pet not found</doc>
+        </response>
+      </method>
+      <method id="updatePetWithForm" name="POST">
+        <doc title="updatePetWithForm" xml:lang="en">Updates a pet in the store with form data</doc>
+        <request>
+          <param name="petId" type="xsd:integer" required="true">
+            <doc title="petId" xml:lang="en">ID of pet that needs to be updated</doc>
+          </param>
+          <param name="name" type="xsd:string">
+            <doc title="name" xml:lang="en">Updated name of the pet</doc>
+          </param>
+          <param name="status" type="xsd:string">
+            <doc title="status" xml:lang="en">Updated status of the pet</doc>
+          </param>
+        </request>
+        <response status="405">
+          <doc title="405" xml:lang="en">Invalid input</doc>
+        </response>
+      </method>
+      <method id="deletePet" name="DELETE">
+        <doc title="deletePet" xml:lang="en">Deletes a pet</doc>
+        <request>
+          <param name="api_key" type="xsd:string">
+            <doc title="api_key" xml:lang="en"></doc>
+          </param>
+          <param name="petId" type="xsd:integer" required="true">
+            <doc title="petId" xml:lang="en">Pet id to delete</doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid ID supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Pet not found</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/pet/{petId}/uploadImage" path="/pet/{petId}/uploadImage">
+      <method id="uploadFile" name="POST">
+        <doc title="uploadFile" xml:lang="en">uploads an image</doc>
+        <request>
+          <param name="petId" type="xsd:integer" required="true">
+            <doc title="petId" xml:lang="en">ID of pet to update</doc>
+          </param>
+          <param name="additionalMetadata" type="xsd:string">
+            <doc title="additionalMetadata" xml:lang="en">Additional data to pass to server</doc>
+          </param>
+          <param name="file" type="xsd:data">
+            <doc title="file" xml:lang="en">file to upload</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#ApiResponse" />
+        </response>
+      </method>
+    </resource>
+    <resource id="/store/inventory" path="/store/inventory">
+      <method id="getInventory" name="GET">
+        <doc title="getInventory" xml:lang="en">Returns pet inventories by status</doc>
+        <request />
+        <response status="200">
+          <representation element="xsd:string" />
+        </response>
+      </method>
+    </resource>
+    <resource id="/store/order" path="/store/order">
+      <method id="placeOrder" name="POST">
+        <doc title="placeOrder" xml:lang="en">Place an order for a pet</doc>
+        <request>
+          <param href="#Order" name="body" required="true">
+            <doc title="body" xml:lang="en">order placed for purchasing the pet</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#Order" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid Order</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/store/order/{orderId}" path="/store/order/{orderId}">
+      <method id="getOrderById" name="GET">
+        <doc title="getOrderById" xml:lang="en">Find purchase order by ID</doc>
+        <request>
+          <param name="orderId" type="xsd:integer" required="true">
+            <doc title="orderId" xml:lang="en">ID of pet that needs to be fetched</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#Order" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid ID supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Order not found</doc>
+        </response>
+      </method>
+      <method id="deleteOrder" name="DELETE">
+        <doc title="deleteOrder" xml:lang="en">Delete purchase order by ID</doc>
+        <request>
+          <param name="orderId" type="xsd:integer" required="true">
+            <doc title="orderId" xml:lang="en">ID of the order that needs to be deleted</doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid ID supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Order not found</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user" path="/user">
+      <method id="createUser" name="POST">
+        <doc title="createUser" xml:lang="en">Create user</doc>
+        <request>
+          <param href="#User" name="body" required="true">
+            <doc title="body" xml:lang="en">Created user object</doc>
+          </param>
+        </request>
+        <response status="500">
+          <doc title="500" xml:lang="en">successful operation</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user/createWithArray" path="/user/createWithArray">
+      <method id="createUsersWithArrayInput" name="POST">
+        <doc title="createUsersWithArrayInput" xml:lang="en">Creates list of users with given input array</doc>
+        <request>
+          <param href="#User" name="body" required="true" repeating="true">
+            <doc title="body" xml:lang="en">List of user object</doc>
+          </param>
+        </request>
+        <response status="500">
+          <doc title="500" xml:lang="en">successful operation</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user/createWithList" path="/user/createWithList">
+      <method id="createUsersWithListInput" name="POST">
+        <doc title="createUsersWithListInput" xml:lang="en">Creates list of users with given input array</doc>
+        <request>
+          <param href="#User" name="body" required="true" repeating="true">
+            <doc title="body" xml:lang="en">List of user object</doc>
+          </param>
+        </request>
+        <response status="500">
+          <doc title="500" xml:lang="en">successful operation</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user/login" path="/user/login">
+      <method id="loginUser" name="GET">
+        <doc title="loginUser" xml:lang="en">Logs user into the system</doc>
+        <request>
+          <param name="username" type="xsd:string" required="true">
+            <doc title="username" xml:lang="en">The user name for login</doc>
+          </param>
+          <param name="password" type="xsd:string" required="true">
+            <doc title="password" xml:lang="en">The password for login in clear text</doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation element="xsd:string" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid username/password supplied</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user/logout" path="/user/logout">
+      <method id="logoutUser" name="GET">
+        <doc title="logoutUser" xml:lang="en">Logs out current logged in user session</doc>
+        <request />
+        <response status="500">
+          <doc title="500" xml:lang="en">successful operation</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user/{username}" path="/user/{username}">
+      <method id="getUserByName" name="GET">
+        <doc title="getUserByName" xml:lang="en">Get user by user name</doc>
+        <request>
+          <param name="username" type="xsd:string" required="true">
+            <doc title="username" xml:lang="en">The name that needs to be fetched. Use user1 for testing. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#User" />
+        </response>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid username supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">User not found</doc>
+        </response>
+      </method>
+      <method id="updateUser" name="PUT">
+        <doc title="updateUser" xml:lang="en">Updated user</doc>
+        <request>
+          <param name="username" type="xsd:string" required="true">
+            <doc title="username" xml:lang="en">name that need to be updated</doc>
+          </param>
+          <param href="#User" name="body" required="true">
+            <doc title="body" xml:lang="en">Updated user object</doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid user supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">User not found</doc>
+        </response>
+      </method>
+      <method id="deleteUser" name="DELETE">
+        <doc title="deleteUser" xml:lang="en">Delete user</doc>
+        <request>
+          <param name="username" type="xsd:string" required="true">
+            <doc title="username" xml:lang="en">The name that needs to be deleted</doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc title="400" xml:lang="en">Invalid username supplied</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">User not found</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+  <representation id="Order" mediaType="application/json">
+    <doc title="Order" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="petId" type="xsd:integer">
+      <doc title="petId" xml:lang="en"></doc>
+    </param>
+    <param name="quantity" type="xsd:integer">
+      <doc title="quantity" xml:lang="en"></doc>
+    </param>
+    <param name="shipDate" type="xsd:dateTime">
+      <doc title="shipDate" xml:lang="en"></doc>
+    </param>
+    <param name="status">
+      <doc title="status" xml:lang="en">Order Status</doc>
+      <option value="approved">
+        <doc title="approved" xml:lang="en"></doc>
+      </option>
+      <option value="delivered">
+        <doc title="delivered" xml:lang="en"></doc>
+      </option>
+      <option value="placed">
+        <doc title="placed" xml:lang="en"></doc>
+      </option>
+    </param>
+    <param name="complete" type="xsd:boolean" default="False">
+      <doc title="complete" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="User" mediaType="application/json">
+    <doc title="User" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="username" type="xsd:string">
+      <doc title="username" xml:lang="en"></doc>
+    </param>
+    <param name="firstName" type="xsd:string">
+      <doc title="firstName" xml:lang="en"></doc>
+    </param>
+    <param name="lastName" type="xsd:string">
+      <doc title="lastName" xml:lang="en"></doc>
+    </param>
+    <param name="email" type="xsd:string">
+      <doc title="email" xml:lang="en"></doc>
+    </param>
+    <param name="password" type="xsd:string">
+      <doc title="password" xml:lang="en"></doc>
+    </param>
+    <param name="phone" type="xsd:string">
+      <doc title="phone" xml:lang="en"></doc>
+    </param>
+    <param name="userStatus" type="xsd:integer">
+      <doc title="userStatus" xml:lang="en">User Status</doc>
+    </param>
+  </representation>
+  <representation id="Category" mediaType="application/json">
+    <doc title="Category" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="name" type="xsd:string">
+      <doc title="name" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="Tag" mediaType="application/json">
+    <doc title="Tag" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="name" type="xsd:string">
+      <doc title="name" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="ApiResponse" mediaType="application/json">
+    <doc title="ApiResponse" xml:lang="en"></doc>
+    <param name="code" type="xsd:integer">
+      <doc title="code" xml:lang="en"></doc>
+    </param>
+    <param name="type" type="xsd:string">
+      <doc title="type" xml:lang="en"></doc>
+    </param>
+    <param name="message" type="xsd:string">
+      <doc title="message" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="Pet" mediaType="application/json">
+    <doc title="Pet" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param href="#Category" name="category">
+      <doc title="category" xml:lang="en"></doc>
+    </param>
+    <param name="name" type="xsd:string" required="true">
+      <doc title="name" xml:lang="en"></doc>
+    </param>
+    <param name="photoUrls" type="xsd:string" required="true" repeating="true">
+      <doc title="photoUrls" xml:lang="en"></doc>
+    </param>
+    <param href="#Tag" name="tags" repeating="true">
+      <doc title="tags" xml:lang="en"></doc>
+    </param>
+    <param name="status">
+      <doc title="status" xml:lang="en">pet status in the store</doc>
+      <option value="available">
+        <doc title="available" xml:lang="en"></doc>
+      </option>
+      <option value="pending">
+        <doc title="pending" xml:lang="en"></doc>
+      </option>
+      <option value="sold">
+        <doc title="sold" xml:lang="en"></doc>
+      </option>
+    </param>
+  </representation>
+</application>

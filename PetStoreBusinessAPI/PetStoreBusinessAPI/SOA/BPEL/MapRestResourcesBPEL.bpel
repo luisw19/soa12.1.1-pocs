@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer
+
+  Created: Fri May 13 12:51:05 BST 2016
+  Author:  luisweir
+  Type: BPEL 2.0 Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="MapRestResourcesBPEL"
+         targetNamespace="http://xmlns.oracle.com/PetStoreBusinessAPI/PetStoreBusinessAPI/MapRestResourcesBPEL"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/PetStoreBusinessAPI/PetStoreBusinessAPI/MapRestResourcesBPEL"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns1="json">
+
+    <!--
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC
+       Set of activities coordinating the flow of messages across the
+       services integrated within this business process
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <partnerLinks>
+        <partnerLink name="petstoreBusinessAPI" bpelx:wadl="yes"/>
+        <partnerLink name="petStoreAPI" bpelx:wadl="yes"/>
+    </partnerLinks>
+    <variables>
+        <variable name="inputVar" bpelx:json="object" />
+        <variable name="outputVar" bpelx:json="object" />
+    </variables>
+    <sequence name="main">
+        <receive name="Receive1" partnerLink="petstoreBusinessAPI" variable="inputVar" bpelx:method="getCatalogue"
+                 createInstance="yes"/>
+        <invoke name="InvokeGetInventory" bpelx:invokeAsDetail="no" partnerLink="petStoreAPI" inputVariable="inputVar"
+                outputVariable="outputVar" bpelx:method="getInventory"/>
+        <reply name="Reply1" partnerLink="petstoreBusinessAPI" variable="outputVar" bpelx:method="getCatalogue"/>
+    </sequence>
+</process>

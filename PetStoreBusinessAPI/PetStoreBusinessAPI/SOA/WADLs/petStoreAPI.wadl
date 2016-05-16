@@ -1,0 +1,256 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="petStoreAPI">This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</doc>
+   <resources>
+      <resource path="/pet">
+         <method name="PUT" soa:name="updatePet">
+            <doc title="PUT updatePet">Update an existing pet</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">Pet object that needs to be added to the store</doc>
+               </param>
+            </request>
+            <response/>
+            <response/>
+         </method>
+         <method name="POST" soa:name="addPet">
+            <doc title="POST addPet">Add a new pet to the store</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">Pet object that needs to be added to the store</doc>
+               </param>
+            </request>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/pet/findByStatus">
+         <method name="GET" soa:name="findPetsByStatus">
+            <doc title="GET findPetsByStatus">Finds Pets by status</doc>
+            <request>
+               <param name="status" default="" type="xsd:string" style="">
+                  <doc title="status">Status values that need to be considered for filter</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/pet/findByTags">
+         <method name="GET" soa:name="findPetsByTags">
+            <doc title="GET findPetsByTags">Finds Pets by tags</doc>
+            <request>
+               <param name="tags" default="" type="xsd:string" style="">
+                  <doc title="tags">Tags to filter by</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/pet/{petId}">
+         <method name="GET" soa:name="getPetById">
+            <doc title="GET getPetById">Find pet by ID</doc>
+            <request>
+               <param name="petId" style="template" default="" type="xsd:string">
+                  <doc title="petId">ID of pet to return</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+         <method name="POST" soa:name="updatePetWithForm">
+            <doc title="POST updatePetWithForm">Updates a pet in the store with form data</doc>
+            <request>
+               <param name="petId" style="template" default="" type="xsd:string">
+                  <doc title="petId">ID of pet that needs to be updated</doc>
+               </param>
+               <param name="name" default="" type="xsd:string" style="">
+                  <doc title="name">Updated name of the pet</doc>
+               </param>
+               <param name="status" default="" type="xsd:string" style="">
+                  <doc title="status">Updated status of the pet</doc>
+               </param>
+            </request>
+            <response/>
+         </method>
+         <method name="DELETE" soa:name="deletePet">
+            <doc title="DELETE deletePet">Deletes a pet</doc>
+            <request>
+               <param name="api_key" default="" type="xsd:string" style=""/>
+               <param name="petId" style="template" default="" type="xsd:string">
+                  <doc title="petId">Pet id to delete</doc>
+               </param>
+            </request>
+            <response/>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/pet/{petId}/uploadImage">
+         <method name="POST" soa:name="uploadFile">
+            <doc title="POST uploadFile">uploads an image</doc>
+            <request>
+               <param name="petId" style="template" default="" type="xsd:string">
+                  <doc title="petId">ID of pet to update</doc>
+               </param>
+               <param name="additionalMetadata" default="" type="xsd:string" style="">
+                  <doc title="additionalMetadata">Additional data to pass to server</doc>
+               </param>
+               <param name="file" default="" type="xsd:data" style="">
+                  <doc title="file">file to upload</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/store/inventory">
+         <method name="GET" soa:name="getInventory">
+            <doc title="GET getInventory">Returns pet inventories by status</doc>
+            <request/>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/store/order">
+         <method name="POST" soa:name="placeOrder">
+            <doc title="POST placeOrder">Place an order for a pet</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">order placed for purchasing the pet</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/store/order/{orderId}">
+         <method name="GET" soa:name="getOrderById">
+            <doc title="GET getOrderById">Find purchase order by ID</doc>
+            <request>
+               <param name="orderId" style="template" default="" type="xsd:string">
+                  <doc title="orderId">ID of pet that needs to be fetched</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+         <method name="DELETE" soa:name="deleteOrder">
+            <doc title="DELETE deleteOrder">Delete purchase order by ID</doc>
+            <request>
+               <param name="orderId" style="template" default="" type="xsd:string">
+                  <doc title="orderId">ID of the order that needs to be deleted</doc>
+               </param>
+            </request>
+            <response/>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user">
+         <method name="POST" soa:name="createUser">
+            <doc title="POST createUser">Create user</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">Created user object</doc>
+               </param>
+            </request>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user/createWithArray">
+         <method name="POST" soa:name="createUsersWithArrayInput">
+            <doc title="POST createUsersWithArrayInput">Creates list of users with given input array</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">List of user object</doc>
+               </param>
+            </request>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user/createWithList">
+         <method name="POST" soa:name="createUsersWithListInput">
+            <doc title="POST createUsersWithListInput">Creates list of users with given input array</doc>
+            <request>
+               <param name="body" default="" type="xsd:string" style="">
+                  <doc title="body">List of user object</doc>
+               </param>
+            </request>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user/login">
+         <method name="GET" soa:name="loginUser">
+            <doc title="GET loginUser">Logs user into the system</doc>
+            <request>
+               <param name="username" default="" type="xsd:string" style="">
+                  <doc title="username">The user name for login</doc>
+               </param>
+               <param name="password" default="" type="xsd:string" style="">
+                  <doc title="password">The password for login in clear text</doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user/logout">
+         <method name="GET" soa:name="logoutUser">
+            <doc title="GET logoutUser">Logs out current logged in user session</doc>
+            <request/>
+            <response/>
+         </method>
+      </resource>
+      <resource path="/user/{username}">
+         <method name="GET" soa:name="getUserByName">
+            <doc title="GET getUserByName">Get user by user name</doc>
+            <request>
+               <param name="username" style="template" default="" type="xsd:string">
+                  <doc title="username">The name that needs to be fetched. Use user1 for testing. </doc>
+               </param>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+            <response/>
+         </method>
+         <method name="PUT" soa:name="updateUser">
+            <doc title="PUT updateUser">Updated user</doc>
+            <request>
+               <param name="username" style="template" default="" type="xsd:string">
+                  <doc title="username">name that need to be updated</doc>
+               </param>
+               <param name="body" type="xsd:string" style="" default="">
+                  <doc title="body">Updated user object</doc>
+               </param>
+            </request>
+            <response/>
+            <response/>
+         </method>
+         <method name="DELETE" soa:name="deleteUser">
+            <doc title="DELETE deleteUser">Delete user</doc>
+            <request>
+               <param name="username" style="template" type="xsd:string" default="">
+                  <doc title="username">The name that needs to be deleted</doc>
+               </param>
+            </request>
+            <response/>
+            <response/>
+         </method>
+      </resource>
+   </resources>
+</application>
